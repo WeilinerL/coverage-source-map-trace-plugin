@@ -1,0 +1,44 @@
+{
+  "name": "coverage-source-map-trace-plugin",
+  "version": "1.0.0",
+  "description": "解决loader对源码二次编译，导致babel-plugin-istanbul采集的覆盖率数据相对于源码存在偏移的问题",
+  "main": "lib/index.js",
+  "scripts": {
+    "release": "npm run build && release-it",
+    "build": "rimraf lib && rollup -c"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-json": "^6.1.0",
+    "release-it": "^17.10.0",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.24.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:WeilinerL/coverage-source-map-trace-plugin.git"
+  },
+  "peerDependencies": {
+    "@babel/traverse": ">=7.26.8",
+    "source-map": ">=0.6.1"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "release-it": {
+    "git": {
+      "requireCleanWorkingDir": false,
+      "commitMessage": "chore: release v${version}"
+    },
+    "npm": {
+      "publish": true
+    }
+  },
+  "author": "WeilinerL@2207284210@qq.com",
+  "license": "ISC"
+}
