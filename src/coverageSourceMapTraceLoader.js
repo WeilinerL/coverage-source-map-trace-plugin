@@ -7,10 +7,10 @@ module.exports = function (source, sourceMap) {
     return source
   }
 
-  const { query, getOptions, resourcePath } = this
+  const { query, resourcePath } = this
   let options = {}
-  if (getOptions && typeof getOptions === 'function') {
-    options = getOptions()
+  if (this.getOptions && typeof this.getOptions === 'function') {
+    options = this.getOptions()
   } else if (query) {
     options = Object.prototype.toString.call(query) === '[object Object]' ? query : {}
   }
