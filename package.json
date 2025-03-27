@@ -1,6 +1,6 @@
 {
   "name": "coverage-source-map-trace-plugin",
-  "version": "1.0.1-0",
+  "version": "1.0.1",
   "description": "解决loader对源码二次编译，导致babel-plugin-istanbul采集的覆盖率数据相对于源码存在偏移的问题",
   "main": "lib/index.js",
   "scripts": {
