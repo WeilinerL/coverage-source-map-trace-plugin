@@ -1,8 +1,8 @@
 const path = require('path')
 const coverageSourceMapTraceLoader = path.resolve(__dirname, './coverageSourceMapTraceLoader.js')
 const coverageSourceMapTraceBabelPlugin = path.resolve(__dirname, './coverageSourceMapTraceBabelPlugin.js')
-const unBlockList = ['cache-loader/dist/cjs.js']
-const babelEntry = 'babel-loader/lib/index.js'
+const unBlockList = [/cache-loader[\\/]{1,2}dist[\\/]{1,2}cjs.js$/]
+const babelEntry = /babel-loader[\\/]{1,2}lib[\\/]{1,2}index.js$/
 
 class CoverageSourceMapTracePlugin {
   static sourceMapCache = new Map()
@@ -16,7 +16,7 @@ class CoverageSourceMapTracePlugin {
     const [requestPath] = requestList.pop().split('?')
     // 当前模块儿使用到了babel，则需要对其进行sourceMap溯源
     const hasBabel =
-      module.loaders.findIndex(l => l.loader.endsWith(babelEntry)) > -1
+      module.loaders.findIndex(l => babelEntry.test(l.loader)) > -1
 
     // hot reload
     if (CoverageSourceMapTracePlugin.sourceMapCache.has(requestPath)) {
@@ -26,7 +26,7 @@ class CoverageSourceMapTracePlugin {
     if (hasBabel) {
       // 过滤应用到script部分的loader
       module.loaders = module.loaders.filter(l => ![coverageSourceMapTraceLoader].includes(l.loader))
-      const babelLoaderIndex = module.loaders.findIndex(l => l.loader.endsWith(babelEntry))
+      const babelLoaderIndex = module.loaders.findIndex(l => babelEntry.test(l.loader))
       const babelLoader = module.loaders[babelLoaderIndex]
       // 处理到babel-loader就可以了，因为插桩是基于babel-plugin-istanbul的，sourceMap采集到这里即可
       const postLoaders = module.loaders.slice(babelLoaderIndex + 1)
@@ -38,7 +38,7 @@ class CoverageSourceMapTracePlugin {
             return loaders
           }
           // 过滤掉不需要收集sourceMap的loader
-          if (unBlockList.find(l => currentLoader.loader.endsWith(l))) {
+          if (unBlockList.find(l => l.test(currentLoader.loader))) {
             loaders.push(currentLoader)
             return loaders
           }
