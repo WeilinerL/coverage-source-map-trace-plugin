@@ -46,11 +46,11 @@ const configList = [
     file: './lib/coverageSourceMapTraceLoader.js',
     format: 'cjs',
     sourcemap: false,
-  }, ['.']),
+  }),
   generateConfig(path.resolve('./src/coverageSourceMapTraceBabelPlugin.js'), {
     file: './lib/coverageSourceMapTraceBabelPlugin.js',
     format: 'cjs',
     sourcemap: false,
-  }, ['@babel/traverse', 'source-map', '.'])
+  })
 ]
 module.exports = configList

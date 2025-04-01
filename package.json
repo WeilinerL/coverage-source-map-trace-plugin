@@ -14,6 +14,8 @@
     "@rollup/plugin-commonjs": "^28.0.1",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-json": "^6.1.0",
+    "@babel/traverse": "7.26.8",
+    "source-map": "0.6.1",
     "release-it": "^17.10.0",
     "rimraf": "^6.0.1",
     "rollup": "^4.24.3"
@@ -21,10 +23,6 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:WeilinerL/coverage-source-map-trace-plugin.git"
-  },
-  "peerDependencies": {
-    "@babel/traverse": ">=7.26.8",
-    "source-map": ">=0.6.1"
   },
   "files": [
     "lib",
